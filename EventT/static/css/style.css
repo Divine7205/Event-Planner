@@ -1,0 +1,133 @@
+body{
+    background-color: aliceblue;
+    font-size: small;
+}
+
+.secondary{
+    background-color: #6D28D9;
+}
+
+.secondary_text{
+    color: #611dce;
+}
+.hero {
+    /* background: linear-gradient(to right, #0d6efd, #3b82f6); */
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+
+
+
+.feature-icon {
+    font-size: 2rem;
+    color: #0d6efd;
+}
+
+.exit-icon{
+    width: 25px;
+}
+
+.benefit-img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+#sub{
+    max-width: 70%;
+}
+.bt{
+    border: none;
+    border-radius: 8px;
+}
+
+.bt:hover{
+    background-color:#5412be
+}
+
+.ic{
+    font-size: calc(1.7em + 1.5vw);
+    color: #6D28D9!important;
+}
+
+.tx{
+    font-size: .90rem;
+}
+
+nav{
+    display: flex;
+}
+
+nav a{
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover{
+    color: lightblue;
+    font-weight: bolder;
+}
+
+#list1{
+    padding: 0;
+    margin: 10px 40px;
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#list1 a{
+    padding: 5px;
+    margin: 0 15px;
+}
+
+#list li{
+    cursor: pointer;
+}
+
+
+input, select,textarea{
+    width: 100%;
+}
+
+form input, select{
+    margin: 10px auto;
+}
+
+form input[type=submit]{
+    background-color: white;
+    border-color: lightblue;
+    width: auto;
+}
+
+
+#forms{
+    width: 28%
+}
+
+@media (max-width: 1000px){
+    #forms{
+        width: 49%;
+    }
+}
+
+@media (max-width: 583px) {
+    #forms{
+        width: 80%;
+    }
+}

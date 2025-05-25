@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block header %}  {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body class="p-3" style="background-image: linear-gradient(to right, blueviolet , lightblue);">
+
+    <fieldset class="container bg-white p-4 mt-5" id="forms" style="border-radius: 30px;font-family: 'Times New Roman', serif;">
+        <legend>{% block title %}  {% endblock %}</legend>
+        <hr>
+        {% block form %}
+
+        {% endblock %}
+    </fieldset>
+</body>
+</html>

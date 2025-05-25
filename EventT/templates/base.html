@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<meta charset="UTF-8">
+		<title>{% block title%} {% endblock %}</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='Logo.svg') }}" type="image">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-expand-md secondary mb-4 py-3 py-md-0 ps-3 ps-md-5">
+				{% if g.user %}
+				<div class="container-fluid text-light navbar-dark d-flex my-3">
+						<p id="p" class="w-50 navbar-brand">
+								<img src="{{ url_for('static', filename='Logo.svg') }}" width="50px" alt="Logo">
+								Welcome {{ g.user['username'] }}
+						</p>
+						<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+								<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="w-50 justify-content-between px-3 collapse navbar-collapse row" id="navbarCollapse">
+								<ul class="row navbar-nav text-sm-end text-start w-100" id="list" >
+<!--										<li class="col-sm-2"></li>-->
+										<li class="col-sm-3 nav-item nav-link"><a href="{{ url_for('user.index') }}">Home</a></li>
+										<li class="col-sm-3 nav-item nav-link"><a href="{{ url_for('user.event') }}">Event</a></li>
+										<li class="col-sm-3 nav-item nav-link"><a href="{{ url_for('user.contact') }}">Contact us</a></li>
+										<li class="col-sm-2 nav-item nav-link"><a href="{{ url_for('user.about_us') }}">About Us</a> </li>
+										<li class="col-sm-1 col-md-1 nav-item nav-link"><a id="logout" href="{{ url_for('auth.logout') }}"><img src="{{ url_for('static', filename='exit.svg') }}" class="exit-icon"></a></li>
+								</ul>
+								<ul class="row navbar-nav w-25 mb-0" style="list-style: none;">
+										
+								</ul>
+						</div>
+				</div>
+				{% else %}
+				<div class="row text-light navbar-dark w-100">
+						<div class="col-6">
+								<h3>
+										<img src="{{ url_for('static', filename='Logo.svg') }}" class="m-2" width="50px" alt="Logo">
+										<b> EventT</b>
+								</h3>
+
+						</div>
+						<div class="col-6 align-content-center">
+								<ul id="list1" class="row text-center">
+										<li class="col-md-3"><a href="{{ url_for('user.index') }}">Home</a></li>
+										<li class="col-md-3"><a href="{{ url_for('user.contact') }}">Contact us</a></li>
+										<li class="col-md-3"><a href="{{ url_for('auth.signup') }}">Register</a></li>
+										<li class="col-md-3"><a href="{{ url_for('auth.login') }}">Log In</a></li>
+								</ul>
+						</div>
+				</div>
+				
+				{% endif %}
+		</nav>
+
+		<div class="container py-5">
+				{% block body %}  {% endblock %}
+		</div>
+		<!-- <footer class="bg-dark text-white py-4 mt-5">
+				<div class="container text-center">
+					<p class="mb-1">&copy; 2025 EventT. All rights reserved.</p>
+					<p class="mb-0">Contact us: support@eventt.com | +1 234 567 890</p>
+				</div>
+		</footer> -->
+
+		<footer class="bg-dark text-light py-5">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 mb-3">
+							<h5>Sitemap</h5>
+							<ul class="list-unstyled">
+								<li><a href="{{ url_for('user.index') }}" class="text-light text-decoration-none">Home</a></li>
+								<li><a href="{{ url_for('user.contact') }}" class="text-light text-decoration-none">Contact us</a></li>
+								<li><a href="{{ url_for('user.about_us') }}" class="text-light text-decoration-none">About us</a></li>
+<!--                <li><a href="#" class="text-light text-decoration-none"></a></li>-->
+							</ul>
+						</div>
+						<div class="col-md-4 mb-3">
+							<h5>Contact Us</h5>
+							<p class="mb-1"><i class="me-2 fa fa-mail-bulk "> </i> support@eventt.com</p>
+							<p class="mb-1"><i class="me-2 fa fa-phone "></i> +1 234 567 890</p>
+							<p><i class="me-2 fa fa-map-marked"></i> 123 Event St, New York, NY</p>
+						</div>
+						<div class="col-md-4 mb-3">
+							<h5>Follow Us</h5>
+							<p>Stay updated on our latest features and updates.</p>
+						</div>
+					</div>
+					<div class="text-center pt-3 border-top mt-4">
+						<small>© 2025 EventT. All Rights Reserved.</small>
+					</div>
+				</div>
+			</footer>
+<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+</body>
+</html>

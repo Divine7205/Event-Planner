@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Event Management</title>
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='Logo.svg') }}" type="image">
+	<style>
+		.section-header {
+			background-color: #f8f9fa;
+			padding: 10px;
+			border-radius: 5px;
+			margin-top: 30px;
+			cursor: pointer;
+		}
+		.section-header:hover {
+			background-color: #e2e6ea;
+		}
+		.card { margin-top: 10px; }
+		.fab2 {
+			position: fixed;
+			top: 30px;
+			right: 30px;
+			background-color: #0d6efd;
+			color: white;
+			border: none;
+			border-radius: 50%;
+			width: 40px;
+			height: 40px;
+			font-size: 15px;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+			cursor: pointer;
+		  }
+	</style>
+</head>
+<body>
+	<div class="container py-4">
+
+		<!-- SECTION: Event Details -->
+		<h3 class="mb-3">Event Details</h3>
+		<div class="card p-3 shadow-sm">
+			<h4>{{ events['EventName'] }}</h4>
+			<p><strong>Start:</strong>{{ events['Start_date'] }}</p>
+			<p><strong>Location:</strong>{{ events['LocationName'] }}</p>
+			<p><strong>Description:</strong> {{ events['Description'] }}</p>
+			<p><strong>Status:</strong> <span class="badge bg-primary">{{ events['Status'] }}</span></p>
+			<p><button class="btn btn-secondary"><a href="{{ url_for('event.update', id=events['EventId']) }}" class="text-light text-decoration-none">Update</a></button></p>
+			
+		</div>
+
+		<!-- COLLAPSIBLE: Tasks -->
+		<div class="section-header" data-bs-toggle="collapse" data-bs-target="#tasksSection">
+			📝 Tasks <span class="float-end">▼</span>
+		</div>
+		<div id="tasksSection" class="collapse">
+			<div class="card card-body">
+				<div class="input-group mb-3">
+					<form action="{{ url_for('event.task') }}" method="post">
+						<input type="text" name="TaskName" required id="taskInput" class="form-control" placeholder="Enter a task">
+						<input type="hidden" style="display: none;" name="EventId" value="{{ events['EventId'] }}"><br>
+						<button class="btn btn-success" type="submit">Add Task</button>
+					</form>
+				</div>
+				<ul class="list-group" id="taskList">
+					{% for task in tasks %}
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+						{{ task['TaskName'] }}<button class="btn btn-sm btn-danger"> <a href="{{ url_for('event.deleteTask', id=task['TaskId']) }}" class="text-decoration-none text-light"> Delete</a></button>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		<!-- COLLAPSIBLE: Budget -->
+		<div class="section-header" data-bs-toggle="collapse" data-bs-target="#budgetSection">
+			💸 Budget Management <span class="float-end">▼</span>
+		</div>
+		<div id="budgetSection" class="collapse">
+			<div class="card card-body">
+				<form method="post" action="{{ url_for('event.budget') }}" class="row mb-3">
+					<input type="hidden" style="display: none;" name="EventId" value="{{ events['EventId'] }}">
+					<div class="col-md-3">
+						<input type="text" name="Category" required class="form-control" placeholder="Category (e.g. Venue)">
+					</div>
+					<div class="col-md-3">
+						<input type="number" name="TotalBudget" required class="form-control" placeholder="Amount (₦)">
+					</div>
+					<div class="col-md-3">
+						<input type="number" name="AmountSpent" class="form-control" placeholder="Amount (₦)">
+					</div>
+					<div class="col-md-3">
+						<button class="btn btn-primary w-100" type="submit" >Add Budget</button>
+					</div>
+				</form>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Category</th>
+							<th>Amount</th>
+							<th>Spent</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody id="budgetTableBody">
+			{% for price in budget %}
+			<tr>
+				<td>{{ price['Category'] }}</td>
+				<td>{{ price['TotalBudget'] }}</td>
+				<td>{{ price['AmountSpent'] }}</td>
+				<td><button class="btn btn-sm btn-danger"><a href="{{ url_for('event.deleteBudget', id=price['BudgetId']) }}" class="text-light text-decoration-none">Delete</a></button></td>
+			</tr>
+			{% endfor %}
+			</tbody>
+					<tfoot>
+						<tr>
+							<th>Total</th>
+							<th>${{ cost }}</th>
+							<th>${{ total }}</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+
+		<!-- COLLAPSIBLE: Attendees -->
+		<div class="section-header" data-bs-toggle="collapse" data-bs-target="#attendeeSection">
+			👥 Attendees <span class="float-end">▼</span>
+		</div>
+		<div id="attendeeSection" class="collapse">
+			<div class="card card-body">
+				<form action="{{ url_for('event.attend') }}" method="post" class="row mb-3">
+					<input type="hidden" style="display: none;" name="EventId" value="{{ events['EventId'] }}">
+					<div class="col-md-5">
+						<input type="text" name="Name" class="form-control" placeholder="Attendee Name">
+					</div>
+					<div class="col-md-5">
+						<input type="email" name="Email" class="form-control" placeholder="Attendee Email">
+					</div>
+					<div class="col-md-2">
+						<button class="btn btn-info w-100" type="submit">Add Attendee</button>
+					</div>
+				</form>
+				<table class="table table-bordered">
+					<thead class="table-light">
+						<tr>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody id="attendeeTableBody">
+			{% for people in attendance %}
+			<tr>
+				<td>{{ people['Name'] }}</td>
+				<td>{{ people['email'] }}</td>
+				<td><button class="btn btn-sm btn-danger"><a href="{{ url_for('event.deleteAttend', id=people['AttendeeId']) }}" class="text-light text-decoration-none">Delete</a></button></td>
+			</tr>
+			{% endfor %}
+
+			</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+<button class="fab2" data-bs-toggle="modal" data-bs-target="#eventModal"><a class="text-light text-decoration-none" href="{{ url_for('user.event') }}"><i class="fa fa-arrow-left"></i></a> </button>
+	<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+</body>
+</html>

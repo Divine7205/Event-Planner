@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    Home
+{% endblock %}
+
+{% block body %}
+
+<section class="hero secondary">
+    <div class="container">
+        <h1 class="display-4">Welcome to EventT</h1>
+        <p class="lead">Your all-in-one solution for effortless event planning and management.</p>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+        <a href="{{ url_for('auth.signup') }}" class="btn btn-light btn-lg">Sign Up</a>
+        <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-lg">Log In</a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Why Choose EventT?</h2>
+        <div class="row g-4">
+        <div class="col-md-4 text-center">
+            <div class="feature-icon mb-3">
+            📅
+            </div>
+            <h5>Smart Scheduling</h5>
+            <p>Coordinate dates and times seamlessly for all your events.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="feature-icon mb-3">
+            📇
+            </div>
+            <h5>Contact Management</h5>
+            <p>Effortlessly keep in touch with attendees, guests, and speakers.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="feature-icon mb-3">
+            📁
+            </div>
+            <h5>Easy Organization</h5>
+            <p>Track event details, tasks, and updates from one simple dashboard.</p>
+        </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 text-center">
+    <div class="container">
+        <h2>Ready to make event planning stress-free?</h2>
+        <p class="lead">Join EventT today and simplify your events like never before.</p>
+        <a href="{{ url_for('auth.signup') }}" class="btn btn-primary btn-lg">Get Started</a>
+    </div>
+</section>
+
+{% endblock %}

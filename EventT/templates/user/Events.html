@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block header %}
+	About us
+{% endblock %}
+
+{% block body %}
+<button class="fab" data-bs-toggle="modal" data-bs-target="#eventModal"><a class="text-light text-decoration-none" href="{{ url_for('event.create') }}">+</a> </button>
+<div class="container py-5">
+  	<h2 class="text-center mb-4">Your Event Dashboard</h2>
+  	<div class="row" id="eventList">
+		{% for event in events %}
+		<div class="col-md-6 col-lg-4">
+			<div class="card event-card shadow-sm">
+				<div class="card-body text-center">
+					<h5 class="card-title">{{ event['EventName'] }}</h5>
+					<h6 class="card-subtitle mb-2 text-muted">{{ event['LocationName'] }}</h6>
+					<p class="mb-1"><strong>Start:</strong> {{ event['Start_date'] }}</p>
+					<p class="mb-1"><strong>End:</strong>{{ event['End_date'] }}</p>
+					<p class="mb-1"><strong>Status:</strong> <span class="badge bg-info text-dark">{{ event['Status'] }}</span></p>
+					<p class="card-text">{{ event['Description'] }}</p>
+					<p class="mb-1">
+						<button class="btn-secondary"><a class="text-black text-decoration-none" href="{{url_for('event.manage', event_id=event['EventId'])}}">Manage</a></button> 
+						<button class="btn-danger"> <a class="text-black text-decoration-none" href="{{url_for('event.delete', id=event['EventId'])}}"> Delete </a></button>
+					</p>
+					<!-- <p class="mb-0 text-muted"><small>Organizer ID: {{ event['OrganizerId'] }}</small></p> -->
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+
+	</div>
+</div>
+
+
+
+{% endblock %}

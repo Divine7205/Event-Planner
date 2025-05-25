@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event creation</title>
+	<style>
+		body {
+		  background-color: #f8f9fa;
+		}
+		.card {
+		  margin-bottom: 20px;
+		}
+		.event-card {
+		  margin-bottom: 20px;
+		}
+		.form-section {
+		  max-width: 700px;
+		  margin: auto;
+		  background: white;
+		  padding: 30px;
+		  border-radius: 10px;
+		  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+		}
+
+	  </style>
+	  <link rel="shortcut icon" href="{{ url_for('static', filename='Logo.svg') }}" type="image">
+	  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+	<div class="form-section">
+		<h2 class="mb-4 text-center">Create New Event</h2>
+		<form id="eventForm" method="post">
+			<div class="mb-3">
+				<label for="EventName" class="form-label">Event Name</label>
+				<input type="text" name="EventName" aria-required="true" value="{{ value['EventName'] }}" class="form-control" id="EventName" required>
+		  	</div>
+		  	<div class="mb-3">
+				<label for="Description" class="form-label">Description</label>
+				<textarea class="form-control" aria-required="true" name="Description" id="Description" rows="3" required>{{ value['Description'] }}</textarea>
+		  	</div>
+		  	<div class="mb-3">
+				<label for="Start_date" class="form-label">Start</label>
+				<input type="datetime-local" aria-required="true" value="{{ value['Start_date'] }}" name="Start_date" class="form-control" id="Start_date" required>
+		  	</div>
+		  	<div class="mb-3">
+				<label for="End_date" class="form-label">End</label>
+				<input type="datetime-local" aria-required="true" value="{{ value['End_date'] }}" name="End_date" class="form-control" id="End_date" required>
+		  	</div>
+		  	<div class="mb-3">
+				<label for="LocationName" class="form-label">Location Name</label>
+				<input type="text" aria-required="true" value="{{ value['LocationName'] }}" class="form-control" name="LocationName" id="LocationName" required>
+			</div>
+			<div class="mb-3">
+				<label for="Status" class="form-label">Status</label>
+				<select class="form-select" name="Status" id="Status" required>
+			  		<option value="Scheduled">Scheduled</option>
+					<option value="Delayed">Delayed</option>
+			  		<option value="Completed">Completed</option>
+			  		<option value="Ongoing">Ongoing</option>
+			  		<option value="Cancelled">Cancelled</option>
+				</select>
+		  	</div>
+		    <button type="submit" class="btn btn-primary w-100">Submit Event</button>
+		</form>
+		{% for message in get_flashed_messages() %}
+			<div class="flash">{{ message }}</div>
+		{% endfor %}
+    </div>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+</body>
+</html>
